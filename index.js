@@ -1,12 +1,18 @@
-const core = require('@actions/core');
+import { getInput, setOutput, setFailed } from '@actions/core';
+import axios from 'axios';
 
 try {
 
-    const regexCommit = /[^\#\#\#]*$/gm;
-    const messageCommit = core.getInput('message-commit');
-    console.log(messageCommit);
-    let m;
+    const webhook = getInput('webhook');
+    const token = getInput('token');
+    const senderName = getInput('sender-name');
+    const senderImage = getInput('sender-image');
+    const title = getInput('title');
+    const text = getInput('text');
+    const messageCommit = getInput('message-commit');
 
+    const regexCommit = /[^\#\#\#]*$/gm;
+    let m;
     let commitsList = [];
 
     while ((m = regexCommit.exec(messageCommit)) !== null) {
@@ -30,10 +36,29 @@ try {
         }
     }
 
-    core.setOutput("slides-data", slidesData);
+    let cliqMessage = {
+        text: text || '',
+        bot: {
+            "name": senderName || '',
+            "image": senderImage || ''
+        },
+        card: {
+            "title": title || '',
+        },
+        "slides": [slidesData]
+    }
+
+    axios.post(webhook, cliqMessage, {
+        params: {
+            zapikey: token,
+        },
+    });
+
+    setOutput('message-json', JSON.stringify(cliqMessage));
+
 
 } catch (error) {
-    core.setFailed(error.message);
+    setFailed(error.message);
 }
 
 
