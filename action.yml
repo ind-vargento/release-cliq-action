@@ -1,0 +1,12 @@
+name: 'Release Cliq'
+description: 'Convert to a Cliq slides template'
+inputs:
+  message-commit:
+    description: 'Message Commit'
+    required: true
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node16'
+  main: 'index.js'
