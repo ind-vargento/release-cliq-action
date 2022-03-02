@@ -5,8 +5,8 @@ inputs:
     description: 'Message Commit'
     required: true
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  slides-data: # id of output
+    description: 'data parsed'
 runs:
   using: 'node16'
   main: 'index.js'
