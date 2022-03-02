@@ -4,6 +4,7 @@ try {
 
     const regexCommit = /[^\#\#\#]*$/gm;
     const messageCommit = core.getInput('message-commit');
+    console.log(messageCommit);
     let m;
 
     let commitsList = [];
