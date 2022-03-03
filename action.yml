@@ -19,9 +19,6 @@ inputs:
   text:
     description: Body of the message.
     required: false
-  message-commit:
-    description: 'Message Commit'
-    required: true
 outputs:
   message-json: 
     description: 'JSON format of the message sent.'
