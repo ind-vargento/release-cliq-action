@@ -4848,14 +4848,12 @@ try {
         });
     }
 
-    let slidesData = "";
+    let slidesData = [];
 
     for (let index = 2; index < commitsList.length; index++) {
 
-        slidesData = slidesData + parseListToJson(commitsList[index]);
-        if (index != commitsList.length - 1) {
-            slidesData = slidesData + ",";
-        }
+        slidesData.push(parseListToJson(commitsList[index]))
+
     }
 
     let cliqMessage = {
@@ -4867,7 +4865,7 @@ try {
         card: {
             "title": title || '',
         },
-        "slides": [slidesData]
+        "slides": slidesData
     }
 
     axios__WEBPACK_IMPORTED_MODULE_1___default().post(webhook, cliqMessage, {
