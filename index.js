@@ -10,52 +10,51 @@ try {
     const senderImage = getInput('sender-image');
     const title = getInput('title');
     const text = getInput('text');
-    // const messageCommit = getInput('message-commit');
-
-    const regexCommit = /[^\#\#\#]*$/gm;
-    let m;
-    let messageCommit;
-    let commitsList = [];
 
     exec('git log -1 --format=%B', (error, stdout, stderr) => {
-        messageCommit = stdout;
-    });
 
-    while ((m = regexCommit.exec(messageCommit)) !== null) {
-        if (m.index === regexCommit.lastIndex) {
-            regexCommit.lastIndex++;
+        let m;
+        let commitsList = [];
+        let regexCommit = /[^\#\#\#]*$/gm;
+        let messageCommit = stdout;
+
+        while ((m = regexCommit.exec(messageCommit)) !== null) {
+            if (m.index === regexCommit.lastIndex) {
+                regexCommit.lastIndex++;
+            }
+
+            m.forEach((match) => {
+                if (match != '')
+                    commitsList.push(match);
+            });
         }
 
-        m.forEach((match) => {
-            if (match != '')
-                commitsList.push(match);
+        let slidesData = [];
+
+        for (let index = 2; index < commitsList.length; index++) {
+
+            slidesData.push(parseListToJson(commitsList[index]))
+
+        }
+
+        let cliqMessage = {
+            text: text || '',
+            bot: {
+                "name": senderName || '',
+                "image": senderImage || ''
+            },
+            card: {
+                "title": title || '',
+            },
+            "slides": slidesData
+        }
+
+        axios.post(webhook, cliqMessage, {
+            params: {
+                zapikey: token,
+            },
         });
-    }
 
-    let slidesData = [];
-
-    for (let index = 2; index < commitsList.length; index++) {
-
-        slidesData.push(parseListToJson(commitsList[index]))
-
-    }
-
-    let cliqMessage = {
-        text: text || '',
-        bot: {
-            "name": senderName || '',
-            "image": senderImage || ''
-        },
-        card: {
-            "title": messageCommit || '',
-        },
-        "slides": slidesData
-    }
-
-    axios.post(webhook, cliqMessage, {
-        params: {
-            zapikey: token,
-        },
     });
 
     setOutput('message-json', JSON.stringify(cliqMessage));
