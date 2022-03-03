@@ -1,4 +1,5 @@
 import { getInput, setOutput, setFailed } from '@actions/core';
+import { exec } from 'child_process';
 import axios from 'axios';
 
 try {
@@ -9,11 +10,16 @@ try {
     const senderImage = getInput('sender-image');
     const title = getInput('title');
     const text = getInput('text');
-    const messageCommit = getInput('message-commit');
+    // const messageCommit = getInput('message-commit');
 
     const regexCommit = /[^\#\#\#]*$/gm;
     let m;
+    let messageCommit;
     let commitsList = [];
+
+    exec('git log -1 --format=%B', (error, stdout, stderr) => {
+        messageCommit = stdout;
+    });
 
     while ((m = regexCommit.exec(messageCommit)) !== null) {
         if (m.index === regexCommit.lastIndex) {

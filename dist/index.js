@@ -4815,27 +4815,39 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
+// ESM COMPAT FLAG
 __nccwpck_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2438);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(254);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(2438);
+;// CONCATENATED MODULE: external "child_process"
+const external_child_process_namespaceObject = require("child_process");
+// EXTERNAL MODULE: ./node_modules/axios/index.js
+var axios = __nccwpck_require__(254);
+var axios_default = /*#__PURE__*/__nccwpck_require__.n(axios);
+;// CONCATENATED MODULE: ./index.js
+
 
 
 
 try {
 
-    const webhook = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('webhook');
-    const token = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('token');
-    const senderName = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('sender-name');
-    const senderImage = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('sender-image');
-    const title = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('title');
-    const text = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('text');
-    const messageCommit = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('message-commit');
+    const webhook = (0,core.getInput)('webhook');
+    const token = (0,core.getInput)('token');
+    const senderName = (0,core.getInput)('sender-name');
+    const senderImage = (0,core.getInput)('sender-image');
+    const title = (0,core.getInput)('title');
+    const text = (0,core.getInput)('text');
+    // const messageCommit = getInput('message-commit');
 
     const regexCommit = /[^\#\#\#]*$/gm;
     let m;
+    let messageCommit;
     let commitsList = [];
+
+    (0,external_child_process_namespaceObject.exec)('git log -1 --format=%B', (error, stdout, stderr) => {
+        messageCommit = stdout;
+    });
 
     while ((m = regexCommit.exec(messageCommit)) !== null) {
         if (m.index === regexCommit.lastIndex) {
@@ -4868,17 +4880,17 @@ try {
         "slides": slidesData
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default().post(webhook, cliqMessage, {
+    axios_default().post(webhook, cliqMessage, {
         params: {
             zapikey: token,
         },
     });
 
-    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)('message-json', JSON.stringify(cliqMessage));
+    (0,core.setOutput)('message-json', JSON.stringify(cliqMessage));
 
 
 } catch (error) {
-    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)(error.message);
+    (0,core.setFailed)(error.message);
 }
 
 
