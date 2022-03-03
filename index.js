@@ -47,7 +47,7 @@ try {
             "image": senderImage || ''
         },
         card: {
-            "title": title || '',
+            "title": messageCommit || '',
         },
         "slides": slidesData
     }
