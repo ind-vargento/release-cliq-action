@@ -4844,7 +4844,22 @@ try {
         let m;
         let commitsList = [];
         let regexCommit = /[^\#\#\#]*$/gm;
-        let messageCommit = stdout;
+        // let messageCommit = stdout;
+        let messageCommit = `chore(release): 1.2.4 [skip ci]
+
+        ## [1.2.4](https://github.com/ndcmsl/ecom.customer/compare/1.2.3...1.2.4) (2022-03-01)
+        
+        ### Bug Fixes
+        
+        * correct lowercase import ([ac9168e](https://github.com/ndcmsl/ecom.customer/commit/ac9168ef8bb23c82b7a3ac69aa89ff952a58732c))
+        * correct loweracase import ([ac9168e](https://github.com/ndcmsl/ecom.customer/commit/ac9168ef8bb23c82b7a3ac69aa89ff952a58732c))
+        * correct loweraacase import ([ac9168e](https://github.com/ndcmsl/ecom.customer/commit/ac9168ef8bb23c82b7a3ac69aa89ff952a58732c))
+        
+        ### Features
+        
+        * correct loweraacase import ([ac9168e](https://github.com/ndcmsl/ecom.customer/commit/ac9168ef8bb23c82b7a3ac69aa89ff952a58732c))
+        * correct loweraacase import ([ac9168e](https://github.com/ndcmsl/ecom.customer/commit/ac9168ef8bb23c82b7a3ac69aa89ff952a58732c))
+        `;       
 
         while ((m = regexCommit.exec(messageCommit)) !== null) {
             if (m.index === regexCommit.lastIndex) {
