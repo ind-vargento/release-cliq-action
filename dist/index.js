@@ -4840,7 +4840,8 @@ try {
 
     (0,external_child_process_namespaceObject.exec)('git tag -l --sort=-creatordate | head -n 1', (error, stdout, stderr) => {
 
-        let urlTemplate = `Cambios release https://github.com/ndcmsl/${title}/releases/tag/${stdout}`
+        stdout = stdout.replace('\n','');
+        let urlTemplate = `Cambios release [${stdout}](https://github.com/ndcmsl/${title}/releases/tag/${stdout})`
 
         let cliqMessage = {
             text: urlTemplate || '',
