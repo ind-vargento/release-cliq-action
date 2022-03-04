@@ -4898,10 +4898,8 @@ try {
             },
         });
 
+        (0,core.setOutput)('message-json', JSON.stringify(cliqMessage));
     });
-
-    (0,core.setOutput)('message-json', JSON.stringify(cliqMessage));
-
 
 } catch (error) {
     (0,core.setFailed)(error.message);

@@ -70,10 +70,8 @@ try {
             },
         });
 
+        setOutput('message-json', JSON.stringify(cliqMessage));
     });
-
-    setOutput('message-json', JSON.stringify(cliqMessage));
-
 
 } catch (error) {
     setFailed(error.message);
