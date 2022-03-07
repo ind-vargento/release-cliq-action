@@ -10,7 +10,7 @@ try {
     const senderImage = getInput('sender-image');
     const title = getInput('title');
 
-    exec('pwd', (error, stdout, stderr) => {
+    exec('git tag -l --sort=-creatordate | head -n 1', (error, stdout, stderr) => {
 
         stdout = stdout.replace('\n','');
         let urlTemplate = `Cambios release [${stdout}](https://github.com/ndcmsl/${title}/releases/tag/${stdout})`

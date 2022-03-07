@@ -4838,7 +4838,7 @@ try {
     const senderImage = (0,core.getInput)('sender-image');
     const title = (0,core.getInput)('title');
 
-    (0,external_child_process_namespaceObject.exec)('pwd', (error, stdout, stderr) => {
+    (0,external_child_process_namespaceObject.exec)('git tag -l --sort=-creatordate | head -n 1', (error, stdout, stderr) => {
 
         stdout = stdout.replace('\n','');
         let urlTemplate = `Cambios release [${stdout}](https://github.com/ndcmsl/${title}/releases/tag/${stdout})`
