@@ -33,6 +33,7 @@ try {
         });
 
         setOutput('message-json', JSON.stringify(cliqMessage));
+        setOutput('commmand', JSON.stringify(stdout));
     });
 
 } catch (error) {
