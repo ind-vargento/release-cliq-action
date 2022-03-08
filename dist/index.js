@@ -4861,7 +4861,7 @@ try {
         });
 
         (0,core.setOutput)('message-json', JSON.stringify(cliqMessage));
-        (0,core.setOutput)('commmand', JSON.stringify(stdout));
+        (0,core.setOutput)('command', JSON.stringify(stdout));
     });
 
 } catch (error) {
