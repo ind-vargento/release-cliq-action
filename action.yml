@@ -16,9 +16,15 @@ inputs:
   title:
     description: Title of the message.
     required: false
+  tag:
+    description: Get tag
+    required: true
+  environment:
+    description: Environment
+    required: false
 outputs:
   message-json: 
     description: 'JSON format of the message sent.'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'lib/index.js'
